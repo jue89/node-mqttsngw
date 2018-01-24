@@ -37,3 +37,16 @@ test('call shutdown handler', () => {
 			expect(e.message).toEqual('stop');
 		});
 });
+
+test('debug log events', () => {
+	const EVENT = 'test';
+	const OBJ = { test2: 2 };
+	const debug = jest.fn();
+	mqttsngw({ log: { debug } })
+		.attach((bus) => () => { bus.emit(EVENT, OBJ); })
+		.start();
+	expect(debug.mock.calls[0][0]).toEqual(`Event: ${EVENT}`);
+	expect(debug.mock.calls[0][1]).toMatchObject(Object.assign({
+		message_id: '857746b8f8264d0fac0bfb8902eaff34'
+	}, OBJ));
+});
