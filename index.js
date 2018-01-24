@@ -4,7 +4,6 @@ function MQTTSNGW (opts) {
 	if (opts === undefined) opts = {};
 	this.bus = new EventEmitter();
 	this.startMethods = [];
-	if (opts.log && opts.log.debug) this.bus.onAny(opts.log.debug);
 }
 
 MQTTSNGW.prototype.attach = function (factory) {

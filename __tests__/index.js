@@ -1,6 +1,3 @@
-jest.mock('eventemitter2');
-
-const eventemitter2 = require('eventemitter2');
 const mqttsngw = require('../index.js');
 
 test('attach module and call its factory', (done) => {
@@ -39,16 +36,4 @@ test('call shutdown handler', () => {
 		.catch((e) => {
 			expect(e.message).toEqual('stop');
 		});
-});
-
-test('register debug handler', (done) => {
-	const debug = (eventName, arg) => {
-		try {
-			expect(eventName).toEqual('name');
-			expect(arg).toEqual('arg');
-			done();
-		} catch (e) { done(e); }
-	};
-	mqttsngw({ log: { debug } });
-	eventemitter2.EventEmitter2.prototype.onAny.mock.calls[0][0]('name', 'arg');
 });
