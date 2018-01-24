@@ -30,17 +30,6 @@ test('resolve instance on successful start', () => {
 	});
 });
 
-test('ensure all mandatory events have listeners', () => {
-	eventemitter2.EventEmitter2.prototype.eventNames.mockReturnValueOnce([]);
-	return mqttsngw()
-		.attach((bus) => () => Promise.resolve())
-		.start()
-		.then(() => Promise.reject(new Error('FAILED')))
-		.catch((e) => {
-			expect(e.message).toEqual('No listener for sn.unicast.ingress');
-		});
-});
-
 test('call shutdown handler', () => {
 	return mqttsngw()
 		.attach((setup) => (start) => (stop) => Promise.reject(new Error('stop')))
@@ -60,6 +49,6 @@ test('register debug handler', (done) => {
 			done();
 		} catch (e) { done(e); }
 	};
-	mqttsngw({ debug });
+	mqttsngw({ log: { debug } });
 	eventemitter2.EventEmitter2.prototype.onAny.mock.calls[0][0]('name', 'arg');
 });

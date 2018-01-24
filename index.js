@@ -4,7 +4,7 @@ function MQTTSNGW (opts) {
 	if (opts === undefined) opts = {};
 	this.bus = new EventEmitter();
 	this.startMethods = [];
-	if (opts.debug) this.bus.onAny(opts.debug);
+	if (opts.log && opts.log.debug) this.bus.onAny(opts.log.debug);
 }
 
 MQTTSNGW.prototype.attach = function (factory) {
@@ -13,19 +13,6 @@ MQTTSNGW.prototype.attach = function (factory) {
 };
 
 MQTTSNGW.prototype.start = function () {
-	const names = this.bus.eventNames();
-	const missingName = [
-		'sn.unicast.ingress',
-		'sn.unicast.outgress',
-		'sn.broadcast.ingress',
-		'sn.broadcast.outgress',
-		'broker.connect',
-		'broker.connect.ack'
-	].find((name) => names.indexOf(name) === -1);
-	if (missingName !== undefined) {
-		return Promise.reject(new Error(`No listener for ${missingName}`));
-	}
-
 	return Promise.all(this.startMethods.map((start) => start())).then((stopHandler) => {
 		this.stopHandler = stopHandler;
 		return this;
