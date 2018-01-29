@@ -2,7 +2,9 @@ const EventEmitter = require('eventemitter2').EventEmitter2;
 
 function MQTTSNGW (opts) {
 	if (opts === undefined) opts = {};
-	this.bus = new EventEmitter();
+	this.bus = new EventEmitter({
+		wildcard: true
+	});
 	this.startMethods = [];
 	// Proxy all events if the user want's debug log
 	// This is necessary to be able to listen to all events without
