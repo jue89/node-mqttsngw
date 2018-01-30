@@ -16,8 +16,10 @@ function MQTTSNGW (opts) {
 			on: (event, handler) => this._bus.on(event, handler),
 			removeListener: (event, handler) => this._bus.removeListener(event, handler),
 			emit: (event, arg) => {
-				opts.log.debug(`Event: ${event}`, Object.assign({
-					message_id: '857746b8f8264d0fac0bfb8902eaff34'
+				const eventStr = event instanceof Array ? event.join(',') : event;
+				opts.log.debug(`Event: ${eventStr}`, Object.assign({
+					message_id: '857746b8f8264d0fac0bfb8902eaff34',
+					event: eventStr
 				}, arg));
 				return this._bus.emit(event, arg);
 			}

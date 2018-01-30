@@ -47,6 +47,7 @@ test('debug log events', () => {
 		.start();
 	expect(debug.mock.calls[0][0]).toEqual(`Event: ${EVENT}`);
 	expect(debug.mock.calls[0][1]).toMatchObject(Object.assign({
-		message_id: '857746b8f8264d0fac0bfb8902eaff34'
+		message_id: '857746b8f8264d0fac0bfb8902eaff34',
+		event: EVENT
 	}, OBJ));
 });
