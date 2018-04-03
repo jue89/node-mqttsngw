@@ -1,14 +1,15 @@
 {
   "name": "mqttsngw",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "MQTT-SN Gateway",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "happiness && jest",
+    "watch": "jest --watchAll"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jue89/node-mqttsn.git"
+    "url": "git+https://github.com/jue89/node-mqttsngw.git"
   },
   "keywords": [
     "mqttsn"
@@ -16,7 +17,27 @@
   "author": "Jue <me@jue.yt>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jue89/node-mqttsn/issues"
+    "url": "https://github.com/jue89/node-mqttsngw/issues"
   },
-  "homepage": "https://github.com/jue89/node-mqttsn#readme"
+  "homepage": "https://github.com/jue89/node-mqttsngw#readme",
+  "devDependencies": {
+    "happiness": "^10.0.2",
+    "jest": "^22.1.4"
+  },
+  "happiness": {
+    "globals": [
+      "jest",
+      "describe",
+      "test",
+      "expect",
+      "beforeEach"
+    ]
+  },
+  "jest": {
+    "automock": false,
+    "clearMocks": true
+  },
+  "dependencies": {
+    "eventemitter2": "^5.0.1"
+  }
 }
